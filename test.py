@@ -62,8 +62,25 @@ class Search(unittest.TestCase):
         trie = kvstore.Trie()
         trie.insert('zahra', 'tehrani')
         value = trie.search('zahra')
-        self.assertEqual(value, 'tehrani')
-    
+        self.assertEqual(value, 'tehrani')    
+
+    def testprefix(self):
+        '''
+        searching a key that is prefix of some other key should work properly.
+        '''
+        trie = kvstore.Trie()
+        trie.insert('foo', 'baz')
+        trie.insert('fooz', 'bar')
+        self.assertEqual(trie.search('foo'), 'baz')
+
+    def testsuffix(self):
+        '''
+        searching a key that is suffix of some other key should work properly.
+        '''
+        trie = kvstore.Trie()
+        trie.insert('foo', 'baz')
+        trie.insert('fooz', 'bar')
+        self.assertEqual(trie.search('fooz'), 'bar')
 
     def testnotexist(self):
         '''
