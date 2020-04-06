@@ -40,7 +40,7 @@ class TestInsert(unittest.TestCase):
         value2 = trie.root.children['a'].children['b'].children['e'].value
         self.assertEqual(value2, 'second')
 
-        value3 = trie.root.children['a'].children['b'].children['c'].children['d'].children['e']
+        value3 = trie.root.children['a'].children['b'].children['c'].children['d'].children['e'].value
         self.assertEqual(value3, 'third')
 
     def testnotstringkey(self):
