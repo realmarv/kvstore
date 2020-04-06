@@ -11,7 +11,6 @@ class Node:
 
 class Trie:
     
-
     def __init__(self):
         self.root = Node()
 
@@ -39,13 +38,17 @@ class Trie:
               
 
     def search(self, key):
-        node = root
+        node = self.root
         for i in range(len(key)):
-            keynode = children[key[i]]
-            if keynode and i == len(ley):
-                return keynode
-            else:
-                return None
+            keynode = node.children[key[i]]
+            try:
+                keynode = node.children[key[i]]
+                if i != len(key) - 1:
+                    node = keynode
+                else:
+                    return keynode.value
+            except:
+                return Node
 
 
     
