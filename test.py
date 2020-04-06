@@ -28,7 +28,11 @@ class TestInsert(unittest.TestCase):
         value2 = trie.root.children['a'].children['b'].children['e'].value
         self.assertEqual(value2, 'second')
 
-    
+    def testnotstringkey(self):
+        trie = kvstore.Trie()
+        self.assertRaises(kvstore.NotStringException, trie.insert, 2, 'foo')
+        self.assertRaises(kvstore.NotStringException, trie.insert, None, 'foo')
+        
 
 class Search(unittest.TestCase):
     
