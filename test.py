@@ -37,6 +37,21 @@ class Search(unittest.TestCase):
         value = trie.search('zahra')
         self.assertEqual(value, 'tehrani')
 
+    def testnotexist(self):
+        trie = kvstore.Trie()
+        self.assertEqual(trie.search('zahra'), None)
+        
+        trie.insert('foo', 'bar')
+        self.assertEqual(trie.search('zahra'), None)
+        
+        self.assertEqual(trie.search('f'), None)
+
+        self.assertEqual(trie.search('fo'), None)
+
+        self.assertEqual(trie.search('fooz'), None)
+
+
+
 
 if __name__ == '__main__':
     unittest.main()
