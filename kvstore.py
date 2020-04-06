@@ -1,43 +1,47 @@
 
 class Node:
     
-    def __init__(self, key=None, value=None, isend=False):
-        self.key = key
+    def __init__(self, value=None):
         self.value = value
-        self.children = []
-        self.isend = isend
+        self.children = dict()
 
     def insert(self, key, value):
         childnode = children[key[0]]
 
 
 class Trie:
-    root
+    
 
     def __init__(self):
         self.root = Node()
 
     def insert(self, key, value):
-        node = root
+        node = self.root
         for i in range(len(key)):
-            keynode = [x for x in node.children if x.key[0] == key[i]][0]
-            if keynode and i != len(keynode.key):
-                node = keynode
-            else if keynode and i == len(key):
-                return keynode
-            else:
-                n = None
-                if i == len(keynode):
-                    n = Node(key=key, value=value, isend=true)
+            try:
+                keynode = node.children[key[i]]
+                if i != len(key)-1:
+                    node = keynode
+                    continue
                 else:
+                    keynode.value = value
+                    return keynode
+            except:
+                if i != len(key) - 1:
                     n = Node()
-                node.children.add(n)
-                node = n
+                    node.children[key[i]] = n
+                    node = n
+                
+                else:
+                    n = Node(value)
+                    node.children[key[i]] = n
+                    return n
+              
 
     def search(self, key):
         node = root
         for i in range(len(key)):
-            keynode = [x for x in node.children if x.key[0] == key[i]][0]
+            keynode = children[key[i]]
             if keynode and i == len(ley):
                 return keynode
             else:
@@ -45,7 +49,4 @@ class Trie:
 
 
     
-    def search(self, key):
-        node = root
-        for i in range(len(key)):
 
