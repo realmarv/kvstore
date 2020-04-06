@@ -15,6 +15,9 @@ class Trie:
         self.root = Node()
 
     def insert(self, key, value):
+        if not isinstance(key, str):
+            raise NotStringException()
+
         node = self.root
         for i in range(len(key)):
             try:
@@ -50,5 +53,6 @@ class Trie:
                 return None
 
 
+class NotStringException(Exception): pass
     
 
