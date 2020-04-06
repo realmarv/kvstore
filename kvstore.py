@@ -5,16 +5,17 @@ class Node:
         self.value = value
         self.children = dict()
 
-    def insert(self, key, value):
-        childnode = children[key[0]]
-
-
 class Trie:
     
     def __init__(self):
         self.root = Node()
 
     def insert(self, key, value):
+        '''
+        Insert a key value to the trie data structure
+        Key must be string.
+        '''
+
         if not isinstance(key, str):
             raise NotStringException()
 
@@ -41,6 +42,10 @@ class Trie:
               
 
     def search(self, key):
+        '''
+        Search a value in dictionary by it's key
+        Returns None if the key doesn't exist in the dictionary.
+        '''
         node = self.root
         for i in range(len(key)):
             try:
