@@ -28,6 +28,7 @@ class TestInsert(unittest.TestCase):
         value2 = trie.root.children['a'].children['b'].children['e'].value
         self.assertEqual(value2, 'second')
 
+    
 
 class Search(unittest.TestCase):
     
@@ -50,7 +51,9 @@ class Search(unittest.TestCase):
 
         self.assertEqual(trie.search('fooz'), None)
 
-
+    def testemptystring(self):
+        trie = kvstore.Trie()
+        self.assertEqual(trie.search(''), None)
 
 
 if __name__ == '__main__':
