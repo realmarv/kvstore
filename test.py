@@ -2,7 +2,7 @@ import unittest
 import kvstore
 
 
-class TestInsert(unittest.TestCase):
+class Insert(unittest.TestCase):
 
     def testinsert(self):
         '''
@@ -57,8 +57,7 @@ class Search(unittest.TestCase):
     def testsearch(self):
         '''
         search method should work properly when we search an existing key.
-        '''
-        
+        ''' 
         trie = kvstore.Trie()
         trie.insert('zahra', 'tehrani')
         value = trie.search('zahra')
@@ -86,7 +85,6 @@ class Search(unittest.TestCase):
         '''
         search method should return None if searching key doesn't exist.
         '''
-        
         trie = kvstore.Trie()
         self.assertEqual(trie.search('zahra'), None)
         
@@ -102,8 +100,7 @@ class Search(unittest.TestCase):
     def testemptystring(self):
         '''
         search method should return None if we search an empty string
-        '''
-        
+        ''' 
         trie = kvstore.Trie()
         self.assertEqual(trie.search(''), None)
 

@@ -5,6 +5,7 @@ class Node:
         self.value = value
         self.children = dict()
 
+
 class Trie:
     
     def __init__(self):
@@ -15,7 +16,6 @@ class Trie:
         Insert a key value to the trie data structure
         Key must be string.
         '''
-
         if not isinstance(key, str):
             raise NotStringException()
 
