@@ -20,10 +20,10 @@ class Trie:
     def insert(self, key, value):
         node = root
         for i in range(len(key)):
-            keynode = [x for x in node.children if x == key[i]][0]
+            keynode = [x for x in node.children if x.key[0] == key[i]][0]
             if keynode and i != len(keynode.key):
                 node = keynode
-            else if keynode and i == len(keynode.key):
+            else if keynode and i == len(key):
                 return keynode
             else:
                 n = None
@@ -34,8 +34,18 @@ class Trie:
                 node.children.add(n)
                 node = n
 
-
+    def search(self, key):
+        node = root
+        for i in range(len(key)):
+            keynode = [x for x in node.children if x.key[0] == key[i]][0]
+            if keynode and i == len(ley):
+                return keynode
+            else:
+                return None
 
 
     
-    def 
+    def search(self, key):
+        node = root
+        for i in range(len(key)):
+
