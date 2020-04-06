@@ -40,7 +40,6 @@ class Trie:
     def search(self, key):
         node = self.root
         for i in range(len(key)):
-            keynode = node.children[key[i]]
             try:
                 keynode = node.children[key[i]]
                 if i != len(key) - 1:
@@ -48,7 +47,7 @@ class Trie:
                 else:
                     return keynode.value
             except:
-                return Node
+                return None
 
 
     
