@@ -6,7 +6,7 @@ __pycache__/
 # C extensions
 *.so
 
-#vim primary 
+#vim temporary 
 
 .*.swp
 .*.swo
@@ -132,3 +132,6 @@ dmypy.json
 
 # Pyre type checker
 .pyre/
+
+# txt files created by program
+.*.txt
