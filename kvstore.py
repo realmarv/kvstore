@@ -142,7 +142,7 @@ class Trie:
         path : path of the file for saving trie.
         override : a boolean defines existing file should be overridden or not
         
-        raises an error if override is False and the file exists.
+        raises an exception if override is False and the file exists.
         '''
         tag = 'x'
         if override:
@@ -152,6 +152,16 @@ class Trie:
             data = json.dumps(dict(self))
             f.write(data)
             
+    def loadinfo(self, path):
+        '''
+        Loads key,values from a file with json format and add them to the trie.
+        path: the path of the file
+        raises an exception if the file doesn't exist.
+        '''
+        with open(path, 'r') as f:
+            jsonstring = f.read()
+            jsondata = json.loads(jsonstring)
+            self.update(dict(jsondata))
 
 
 class NotStringException(Exception): pass
