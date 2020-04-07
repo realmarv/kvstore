@@ -21,6 +21,10 @@ trie.insert(key, value)
 use update method to insert arbitrary number of key, values to the trie.
 ```
 trie.update(key1=value1, key2=value2, key3=value3)
+  
+trie.update(udict={'foo':'bar', 'qux':'quu'})
+  
+trie.update(uiter=[('foo', 'bar'), ('qux', 'quu')])
 ```
   
 * Search  
