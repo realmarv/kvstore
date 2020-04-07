@@ -1,5 +1,6 @@
 import unittest
 import kvstore
+import json
 
 
 class InsertTest(unittest.TestCase):
@@ -224,6 +225,36 @@ class UpdateTest(unittest.TestCase):
         self.assertEqual('bar', value1)
         self.assertEqual('quu', value2)
 
+
+class SaveTest(unittest.TestCase):
+    
+    def testsave(self):
+        '''
+        saveinfo method should writes json data in a file properly.
+        '''
+        trie = kvstore.Trie()
+        trie.saveinfo('file.txt', True)
+        filedata = None
+        with open('file.txt', 'r') as f:
+            filedata = f.read()
+        self.assertEqual(json.loads('{}'),  json.loads(filedata))
+        
+        trie.insert('foo', 'bar')
+        trie.saveinfo('file.txt', True)
+        filedata = None
+        with open('file.txt', 'r') as f:
+            filedata = f.read()
+        self.assertEqual(json.loads('{"foo":"bar"}'),  json.loads(filedata))
+
+    def test_existingfile_exception(self):
+        '''
+        Trying to save data in an existing file with override=False
+        should raise an exception
+        '''
+        trie = kvstore.Trie()
+        trie.saveinfo('existing.txt', False)
+        trie.insert('foo', 'bar')
+        self.assertRaises(Exception, trie.saveinfo, 'existing.txt', False)
 
 if __name__ == '__main__':
     unittest.main()
