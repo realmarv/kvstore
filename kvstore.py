@@ -42,6 +42,9 @@ class Trie:
                     n = Node(value)
                     node.children[key[i]] = n
                     return n
+    def update(self, **kwargs):
+        for key, value in kwargs.items():
+            self.insert(key, value)
 
     def search(self, key):
         '''
@@ -93,6 +96,9 @@ class Trie:
             del father.children[char]
                 
     def __iter__(self):
+        '''
+        Returns an iterator so that user can iterate over trie key, values.
+        '''
         return iter(self.__getitems())
 
     def __getitems(self):
@@ -105,7 +111,7 @@ class Trie:
         
     def __dfs(self, node, tonowstring, items):
         '''
-        Travers the trie and put key, values in dictionary
+        Travers the trie and put (key, value) items in items list
         '''
         if node.value:
             items.append((tonowstring, node.value))
