@@ -50,7 +50,15 @@ class Insert(unittest.TestCase):
         trie = kvstore.Trie()
         self.assertRaises(kvstore.NotStringException, trie.insert, 2, 'foo')
         self.assertRaises(kvstore.NotStringException, trie.insert, None, 'foo')
-    
+
+    def testemptystringkey(self):
+        '''
+        Trying to insert a key, value with  an empty string key should
+        raise an EmptyStringException.
+        '''
+        trie = kvstore.Trie()
+        self.assertRaises(kvstore.EmptyStringException, trie.insert, '', 'bar')
+
 
 class Search(unittest.TestCase):
     
@@ -102,8 +110,68 @@ class Search(unittest.TestCase):
         search method should return None if we search an empty string
         ''' 
         trie = kvstore.Trie()
-        self.assertEqual(trie.search(''), None)
+        self.assertRaises(kvstore.EmptyStringException, trie.search, '')
 
+    def testnotstringkey(self):
+        '''
+        search method should raise NotStringException if defined key is not
+        a string.
+        '''
+        trie = kvstore.Trie()
+        self.assertRaises(kvstore.NotStringException, trie.search, None)
+        self.assertRaises(kvstore.NotStringException, trie.search, 2)
+
+class Delete(unittest.TestCase):
+
+    def testdeletenode(self):
+        '''
+        Delete a key, value by an existing key 
+        when removig trie nodes is needed should work properly.
+        '''
+        trie = kvstore.Trie()
+        trie.insert('foo', 'bar')
+        trie.delete('foo')
+        self.assertFalse('f' in trie.root.children)
+
+        trie.insert('foo', 'bar')
+        trie.insert('fo', 'baz')
+        trie.delete('foo')
+        self.assertFalse('o' in trie.root.children['f'].children['o'].children)
+
+        trie.insert('foo', 'bar')
+        trie.insert('foz', 'bar')
+        trie.delete('foz')
+        self.assertFalse('z' in trie.root.children['f'].children['o'].children)
+        self.assertTrue('o' in trie.root.children['f'].children['o'].children)
+
+        trie.insert('longword', 'quu')
+        trie.delete('longword')
+        self.assertFalse('l' in trie.root.children)
+
+
+    def testremovevalue(self):
+        '''
+        Delete a value by it's key
+        when just value of the node should become None should work properly.
+        '''
+        trie = kvstore.Trie()
+        trie.insert('foo', 'bar')
+        trie.insert('fo', 'baz')
+        trie.delete('fo')
+        self.assertEqual(None, trie.root.children['f'].children['o'].value)
+
+        trie.insert('foz', 'qux')
+        trie.insert('fo', 'baz')
+        trie.delete('fo')
+        self.assertEqual(None, trie.root.children['f'].children['o'].value)
+
+    def testemptystring(self):
+        '''
+        Trying to delete an empty string should raise an 
+        EmptyStringException.
+        '''
+        trie = kvstore.Trie()
+        self.assertRaises(kvstore.EmptyStringException, trie.delete, '')
 
 if __name__ == '__main__':
     unittest.main()
