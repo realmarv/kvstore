@@ -252,7 +252,6 @@ class SaveTest(unittest.TestCase):
         should raise an exception
         '''
         trie = kvstore.Trie()
-        trie.saveinfo('existing.txt', False)
         trie.insert('foo', 'bar')
         self.assertRaises(Exception, trie.saveinfo, 'existing.txt', False)
 
