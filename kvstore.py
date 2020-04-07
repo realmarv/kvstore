@@ -42,7 +42,6 @@ class Trie:
                     n = Node(value)
                     node.children[key[i]] = n
                     return n
-              
 
     def search(self, key):
         '''
@@ -93,7 +92,32 @@ class Trie:
 
             del father.children[char]
                 
-                
+    def __iter__(self):
+        return iter(self.__getitems())
+
+    def __getitems(self):
+        '''
+        Returns a dictionary of all key, values in the trie.
+        '''
+        items = []
+        self.__dfs(self.root, '', items)
+        return items
+        
+    def __dfs(self, node, tonowstring, items):
+        '''
+        Travers the trie and put key, values in dictionary
+        '''
+        if node.value:
+            items.append((tonowstring, node.value))
+        
+        for char, childnode in node.children.items():
+            self.__dfs(childnode, (tonowstring + char), items)
+
+            
+        
+            
+
+
 class NotStringException(Exception): pass
 class EmptyStringException(Exception): pass
 
