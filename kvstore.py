@@ -1,3 +1,5 @@
+import json
+
 
 class Node:
     
@@ -44,6 +46,12 @@ class Trie:
                     return n
 
     def update(self, udict={}, uiter=[], **kwargs):
+        '''
+        Insert all key, values to the trie.
+        udict : a dictionary of key, values
+        uiter : an iterable of key, values
+        kwargs : arbitrary number of key, values
+        '''
         for key, value in kwargs.items():
             self.insert(key, value)
 
@@ -111,7 +119,7 @@ class Trie:
 
     def __getitems(self):
         '''
-        Returns a dictionary of all key, values in the trie.
+        Returns a list of all (key, value) items in the trie.
         '''
         items = []
         self.__dfs(self.root, '', items)
@@ -128,7 +136,21 @@ class Trie:
             self.__dfs(childnode, (tonowstring + char), items)
 
             
+    def saveinfo(self, path, override=False):
+        '''
+        Save dict of key, valus in json format in a file.
+        path : path of the file for saving trie.
+        override : a boolean defines existing file should be overridden or not
         
+        raises an error if override is False and the file exists.
+        '''
+        tag = 'x'
+        if override:
+            tag = 'w'
+
+        with open(path, tag) as f:
+            data = json.dumps(dict(self))
+            f.write(data)
             
 
 
