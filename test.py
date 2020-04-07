@@ -200,6 +200,30 @@ class UpdateTest(unittest.TestCase):
         self.assertEqual('bar', value1)
         self.assertEqual('quu', value2)
 
+    def testdict(self):
+        '''
+        Pass a dictionary to update method should insert all key, values to the
+        trie.
+        '''
+        trie = kvstore.Trie()
+        trie.update(udict={'foo':'bar', 'qux':'quu'})
+        value1 = trie.root.children['f'].children['o'].children['o'].value
+        value2 = trie.root.children['q'].children['u'].children['x'].value
+        self.assertEqual('bar', value1)
+        self.assertEqual('quu', value2)
+
+    def testiterable(self):
+        '''
+        Pass a iterable of key, values should insert all key, values to the
+        trie.
+        '''
+        trie = kvstore.Trie()
+        trie.update(uiter=[('foo', 'bar'), ('qux', 'quu')])
+        value1 = trie.root.children['f'].children['o'].children['o'].value
+        value2 = trie.root.children['q'].children['u'].children['x'].value
+        self.assertEqual('bar', value1)
+        self.assertEqual('quu', value2)
+
 
 if __name__ == '__main__':
     unittest.main()
