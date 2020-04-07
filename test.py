@@ -2,7 +2,7 @@ import unittest
 import kvstore
 
 
-class Insert(unittest.TestCase):
+class InsertTest(unittest.TestCase):
 
     def testinsert(self):
         '''
@@ -60,7 +60,7 @@ class Insert(unittest.TestCase):
         self.assertRaises(kvstore.EmptyStringException, trie.insert, '', 'bar')
 
 
-class Search(unittest.TestCase):
+class SearchTest(unittest.TestCase):
     
     def testsearch(self):
         '''
@@ -121,7 +121,7 @@ class Search(unittest.TestCase):
         self.assertRaises(kvstore.NotStringException, trie.search, None)
         self.assertRaises(kvstore.NotStringException, trie.search, 2)
 
-class Delete(unittest.TestCase):
+class DeleteTest(unittest.TestCase):
 
     def testdeletenode(self):
         '''
@@ -172,6 +172,20 @@ class Delete(unittest.TestCase):
         '''
         trie = kvstore.Trie()
         self.assertRaises(kvstore.EmptyStringException, trie.delete, '')
+
+class DictTest(unittest.TestCase):
+    
+    def testdict(self):
+        '''
+        Pass a Trie object to python dict built-in function should return a dictionary.
+        '''
+        trie = kvstore.Trie()
+        self.assertEqual({}, dict(trie))
+
+        trie.insert('foo', 'bar')
+        trie.insert('baz', 'qux')
+        mydict = dict(trie)
+        self.assertEqual({'foo':'bar', 'baz':'qux'}, mydict)
 
 if __name__ == '__main__':
     unittest.main()
