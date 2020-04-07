@@ -42,9 +42,17 @@ class Trie:
                     n = Node(value)
                     node.children[key[i]] = n
                     return n
-    def update(self, **kwargs):
+
+    def update(self, udict={}, uiter=[], **kwargs):
         for key, value in kwargs.items():
             self.insert(key, value)
+
+        for key, value in udict.items():
+            self.insert(key, value)
+
+        for key, value in uiter:
+            self.insert(key, value)
+
 
     def search(self, key):
         '''
