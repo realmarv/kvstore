@@ -256,5 +256,25 @@ class SaveTest(unittest.TestCase):
         trie.insert('foo', 'bar')
         self.assertRaises(Exception, trie.saveinfo, 'existing.txt', False)
 
+class LoadTest(unittest.TestCase):
+
+    def testload(self):
+        '''
+        Load data from a file should add key, values to the trie
+        '''
+        trie = kvstore.Trie()
+        trie.insert('qux', 'quu')
+        trie.loadinfo('file.txt')
+        expected = json.loads('{"foo":"bar", "qux":"quu"}')
+        self.assertEqual(dict(expected), dict(trie))
+
+    def test_notexistingfile_exception(self):
+        '''
+        Trying to load data from not existing file should raise an exception.
+        '''
+        trie = kvstore.Trie()
+        self.assertRaises(Exception, trie.loadinfo, 'notexist.txt')
+
+
 if __name__ == '__main__':
     unittest.main()
