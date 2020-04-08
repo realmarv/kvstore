@@ -51,7 +51,8 @@ the trie.
 ```
 trie.loadinfo('filename.txt')
 ```
-* Iterate over a Trie object
+  
+* Iterate over a Trie object  
 you can pass a Trie object to python built-in dict function and get a dictionary of key, values. or simply iterate over a trie in a loop.
 ```
 kvdict = dict(trie)
